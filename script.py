@@ -58,6 +58,12 @@ def run(filename):
             stack.pop()
 
         elif command["op"] == "sphere":
+
+            if command["constants"] != None:
+                ref = command["constants"]
+            else:
+                ref = reflect
+            
             add_sphere( tmp,
                             command["args"][0],
                             command["args"][1],
@@ -65,10 +71,16 @@ def run(filename):
                             command["args"][3],
                             step_3d )
             matrix_mult( stack[-1], tmp )
-            draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+            draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, ref)
             tmp = []
             
         elif command["op"] == "torus":
+            
+            if command["constants"] != None:
+                ref = command["constants"]
+            else:
+                ref = reflect
+                
             add_torus( tmp,
                            command["args"][0],
                            command["args"][1],
@@ -77,10 +89,16 @@ def run(filename):
                            command["args"][4],
                            step_3d )
             matrix_mult( stack[-1], tmp )
-            draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+            draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, ref)
             tmp = []
 
         elif command["op"] == "box":
+
+            if command["constants"] != None:
+                ref = command["constants"]
+            else:
+                ref = reflect
+            
             add_box( tmp,
                          command["args"][0],
                          command["args"][1],
@@ -89,7 +107,7 @@ def run(filename):
                          command["args"][4],
                          command["args"][5] )
             matrix_mult( stack[-1], tmp )
-            draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+            draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, ref)
             tmp = []
 
         elif command["op"] == "line":
